@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Resultado de la Predicción{% endblock %}
+
+{% block content %}
+<h2>Resultado de la Predicción</h2>
+<div class="prediction-result">
+    <p>El nivel de satisfacción predicho para este perfil es:</p>
+    <p class="result-text">{{ prediction_text }}</p>
+    <p>(Probabilidad estimada de estar satisfecho: {{ probability }})</p>
+</div>
+<a href="{{ url_for('main.index') }}" class="back-link">Realizar otra predicción</a>
+{% endblock %}

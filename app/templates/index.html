@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+
+{% block title %}Formulario de Satisfacción{% endblock %}
+
+{% block content %}
+<h2>Introduce tus datos y los de tu vuelo</h2>
+<p>Completa el siguiente formulario para predecir tu nivel de satisfacción y ayudarnos a mejorar.</p>
+
+<form action="{{ url_for('main.predict') }}" method="post" class="satisfaction-form">
+
+    <div class="form-section">
+        <h3>Información Personal (Para seguimiento)</h3>
+         <div class="form-group">
+            <label for="customer_name">Nombre Completo:</label>
+            <input type="text" id="customer_name" name="customer_name" > <!-- Quitar required si es opcional -->
+        </div>
+        <div class="form-group">
+            <label for="customer_email">Correo Electrónico:</label>
+            <input type="email" id="customer_email" name="customer_email"> <!-- Quitar required si es opcional -->
+        </div>
+        <div class="form-group">
+            <label for="customer_dni">DNI/Identificación:</label>
+            <input type="text" id="customer_dni" name="customer_dni">
+        </div>
+        <div class="form-group">
+            <label for="customer_phone">Teléfono (Opcional):</label>
+            <input type="tel" id="customer_phone" name="customer_phone">
+        </div>
+    </div>
+
+
+    <div class="form-section">
+        <h3>Información del Pasajero (Para predicción)</h3>
+        <div class="form-group">
+            <label for="Gender">Género:</label>
+            <select id="Gender" name="Gender" required>
+                <option value="" disabled selected>Selecciona...</option>
+                <option value="Female">Femenino</option>
+                <option value="Male">Masculino</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Customer Type">Tipo de Cliente:</label>
+            <select id="Customer Type" name="Customer Type" required>
+                <option value="" disabled selected>Selecciona...</option>
+                <option value="Loyal Customer">Cliente Leal</option>
+                <option value="disloyal Customer">Cliente No Leal</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Age">Edad:</label>
+            <input type="number" id="Age" name="Age" min="5" max="100" required>
+        </div>
+        <div class="form-group">
+            <label for="Type of Travel">Tipo de Viaje:</label>
+            <select id="Type of Travel" name="Type of Travel" required>
+                <option value="" disabled selected>Selecciona...</option>
+                <option value="Business travel">Viaje de Negocios</option>
+                <option value="Personal Travel">Viaje Personal</option>
+            </select>
+        </div>
+        <div class="form-group">
+             <label for="flight_class">Clase de Vuelo:</label>
+             <select id="flight_class" name="flight_class" required> <!-- Asegúrate que 'name' sea único -->
+                <option value="" disabled selected>Selecciona...</option>
+                <option value="Business">Business</option>
+                <option value="Eco">Eco</option>
+                <option value="Eco Plus">Eco Plus</option>
+             </select>
+        </div>
+        <div class="form-group">
+            <label for="Flight Distance">Distancia del Vuelo (km):</label>
+            <input type="number" id="Flight Distance" name="Flight Distance" min="10" required>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Valoración de Servicios (0=Malo, 5=Excelente)</h3>
+        <!-- Añadir todos los campos de valoración aquí -->
+        <div class="form-group rating-group">
+            <label for="Inflight wifi service">Servicio Wifi a bordo:</label>
+            <input type="number" id="Inflight wifi service" name="Inflight wifi service" min="0" max="5" required>
+        </div>
+        <div class="form-group rating-group">
+            <label for="Departure/Arrival time convenient">Conveniencia Horario Salida/Llegada:</label>
+            <input type="number" id="Departure/Arrival time convenient" name="Departure/Arrival time convenient" min="0" max="5" required>
+        </div>
+         <div class="form-group rating-group">
+             <label for="Ease of Online booking">Facilidad Reserva Online:</label>
+             <input type="number" id="Ease of Online booking" name="Ease of Online booking" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Gate location">Ubicación Puerta Embarque:</label>
+             <input type="number" id="Gate location" name="Gate location" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Food and drink">Comida y Bebida:</label>
+             <input type="number" id="Food and drink" name="Food and drink" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Online boarding">Embarque Online:</label>
+             <input type="number" id="Online boarding" name="Online boarding" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Seat comfort">Comodidad del Asiento:</label>
+             <input type="number" id="Seat comfort" name="Seat comfort" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Inflight entertainment">Entretenimiento a Bordo:</label>
+             <input type="number" id="Inflight entertainment" name="Inflight entertainment" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="On-board service">Servicio a Bordo:</label>
+             <input type="number" id="On-board service" name="On-board service" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Leg room service">Espacio para Piernas:</label>
+             <input type="number" id="Leg room service" name="Leg room service" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Baggage handling">Manejo de Equipaje:</label>
+             <input type="number" id="Baggage handling" name="Baggage handling" min="1" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Checkin service">Servicio Check-in:</label>
+             <input type="number" id="Checkin service" name="Checkin service" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Inflight service">Servicio en Vuelo:</label>
+             <input type="number" id="Inflight service" name="Inflight service" min="0" max="5" required>
+         </div>
+         <div class="form-group rating-group">
+             <label for="Cleanliness">Limpieza:</label>
+             <input type="number" id="Cleanliness" name="Cleanliness" min="0" max="5" required>
+         </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Información de Retrasos</h3>
+        <div class="form-group">
+            <label for="Departure Delay in Minutes">Retraso Salida (minutos):</label>
+            <input type="number" id="Departure Delay in Minutes" name="Departure Delay in Minutes" min="0" required>
+        </div>
+        <div class="form-group">
+            <label for="Arrival Delay in Minutes">Retraso Llegada (minutos):</label>
+            <input type="number" id="Arrival Delay in Minutes" name="Arrival Delay in Minutes" min="0" required>
+        </div>
+    </div>
+
+    <button type="submit" class="submit-button">Predecir Satisfacción y Guardar Datos</button>
+</form>
+{% endblock %}
