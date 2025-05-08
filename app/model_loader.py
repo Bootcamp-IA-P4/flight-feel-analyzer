@@ -2,90 +2,61 @@
 import joblib
 import os
 
-# --- Cargar NOMBRES de archivo desde variables de entorno ---
-# Es importante que estas variables estén definidas en tu archivo .env
-# Ejemplo en .env:
-# MODEL_FILENAME=gradient_boosting_satisfaction_model.pkl
-# SCALER_FILENAME=standard_scaler.pkl
-# etc.
-model_filename = os.environ.get('MODEL_FILENAME')
-scaler_filename = os.environ.get('SCALER_FILENAME')
-feature_order_filename = os.environ.get('FEATURE_ORDER_FILENAME')
-cols_to_scale_filename = os.environ.get('COLS_TO_SCALE_FILENAME')
+# Obtener el directorio del script actual (model_loader.py)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, 'ml_models')
 
-# --- Inicializar componentes ---
-model = None
-scaler = None
-feature_order = None
-cols_to_scale = None
+# Usar variables de entorno si están definidas, si no, usar valores por defecto
+MODEL_FILENAME = os.getenv('MODEL_FILENAME', 'model.pkl') # <- NOMBRE USADO EN TU SCRIPT model_satisfaction.py
+FEATURE_ORDER_FILENAME = os.getenv('FEATURE_ORDER_FILENAME', 'feature_order.joblib')
 
-# --- Determinar ruta base y directorio de modelos ---
-# base_dir apuntará a C:\...\flight-feel-analyzer\app
-base_dir = os.path.dirname(os.path.abspath(__file__))
-# Construye la ruta a la subcarpeta 'ml_models' DENTRO de 'app'
-model_dir = os.path.join(base_dir, 'ml_models')
+MODEL_FILE = os.path.join(MODEL_DIR, MODEL_FILENAME)
+FEATURE_ORDER_FILE = os.path.join(MODEL_DIR, FEATURE_ORDER_FILENAME)
 
-# --- Cargar Modelo ---
-if model_filename:
-    model_path = os.path.join(model_dir, model_filename)
+_model = None
+_feature_order = None
+_components_loaded = False
+
+def _load_components():
+    global _model, _feature_order, _components_loaded
+    print(f"Intentando cargar modelo desde: {MODEL_FILE} (definido por MODEL_FILENAME)")
     try:
-        print(f"Intentando cargar modelo desde: {model_path} (definido por MODEL_FILENAME)")
-        model = joblib.load(model_path)
-        print("Modelo cargado.")
-    except FileNotFoundError:
-        print(f"Error crítico: Archivo de modelo '{model_filename}' no encontrado en '{model_dir}'. Verifique la variable MODEL_FILENAME en .env y la ubicación física del archivo.")
-    except Exception as e:
-        print(f"Error inesperado al cargar modelo '{model_filename}': {e}")
-else:
-    print("Error Crítico: La variable de entorno MODEL_FILENAME no está definida en .env. No se puede cargar el modelo.")
+        if not os.path.exists(MODEL_FILE):
+            print(f"Error crítico: Archivo de modelo '{MODEL_FILENAME}' no encontrado en '{MODEL_DIR}'. Verifique la variable MODEL_FILENAME en .env y la ubicación física del archivo.")
+            _model = None # Asegurar que es None si no se encuentra
+        else:
+            _model = joblib.load(MODEL_FILE)
+            print("Modelo cargado.")
 
-# --- Cargar Scaler ---
-if scaler_filename:
-    scaler_path = os.path.join(model_dir, scaler_filename)
-    try:
-        print(f"Intentando cargar scaler desde: {scaler_path} (definido por SCALER_FILENAME)")
-        scaler = joblib.load(scaler_path)
-        print("Scaler cargado.")
-    except FileNotFoundError:
-        print(f"Error crítico: Archivo de scaler '{scaler_filename}' no encontrado en '{model_dir}'. Verifique la variable SCALER_FILENAME en .env y la ubicación física.")
-    except Exception as e:
-        print(f"Error inesperado al cargar scaler '{scaler_filename}': {e}")
-else:
-    print("Error Crítico: La variable de entorno SCALER_FILENAME no está definida en .env. No se puede cargar el scaler.")
+        print(f"Intentando cargar orden de características desde: {FEATURE_ORDER_FILE} (definido por FEATURE_ORDER_FILENAME)")
+        if not os.path.exists(FEATURE_ORDER_FILE):
+            print(f"Error crítico: Archivo de orden de características '{FEATURE_ORDER_FILENAME}' no encontrado en '{MODEL_DIR}'. Verifique FEATURE_ORDER_FILENAME en .env y la ubicación física.")
+            _feature_order = None # Asegurar que es None si no se encuentra
+        else:
+            _feature_order = joblib.load(FEATURE_ORDER_FILE)
+            print("Orden de características cargado.")
+            
+        if _model and _feature_order:
+            _components_loaded = True
+            print("Componentes (modelo y orden de características) cargados exitosamente.")
+        else:
+            print("Uno o más componentes (modelo u orden de características) fallaron al cargar.")
+            _components_loaded = False # Mantener False si algo falla
+            # Podrías lanzar una excepción aquí si es un fallo crítico que impida iniciar la app
+            # raise RuntimeError("Fallo crítico al cargar componentes del modelo ML.")
 
-# --- Cargar Orden de Características ---
-if feature_order_filename:
-    feature_order_path = os.path.join(model_dir, feature_order_filename)
-    try:
-        print(f"Intentando cargar orden de características desde: {feature_order_path} (definido por FEATURE_ORDER_FILENAME)")
-        feature_order = joblib.load(feature_order_path)
-        print("Orden de características cargado.")
-    except FileNotFoundError:
-         print(f"Error crítico: Archivo de orden de características '{feature_order_filename}' no encontrado en '{model_dir}'. Verifique FEATURE_ORDER_FILENAME en .env y la ubicación física.")
     except Exception as e:
-        print(f"Error inesperado al cargar orden de características '{feature_order_filename}': {e}")
-else:
-    print("Error Crítico: La variable de entorno FEATURE_ORDER_FILENAME no está definida en .env.")
+        print(f"Error excepcional durante la carga de componentes: {e}")
+        _model, _feature_order = None, None # Reiniciar en caso de error
+        _components_loaded = False
 
-# --- Cargar Columnas a Escalar ---
-if cols_to_scale_filename:
-    cols_to_scale_path = os.path.join(model_dir, cols_to_scale_filename)
-    try:
-        print(f"Intentando cargar columnas a escalar desde: {cols_to_scale_path} (definido por COLS_TO_SCALE_FILENAME)")
-        cols_to_scale = joblib.load(cols_to_scale_path)
-        print("Columnas a escalar cargadas.")
-    except FileNotFoundError:
-        print(f"Error crítico: Archivo de columnas a escalar '{cols_to_scale_filename}' no encontrado en '{model_dir}'. Verifique COLS_TO_SCALE_FILENAME en .env y la ubicación física.")
-    except Exception as e:
-         print(f"Error inesperado al cargar columnas a escalar '{cols_to_scale_filename}': {e}")
-else:
-    print("Error Crítico: La variable de entorno COLS_TO_SCALE_FILENAME no está definida en .env.")
+# ESTA ES LA FUNCIÓN QUE routes.py INTENTA IMPORTAR
+def get_model_and_feature_order():
+    global _components_loaded
+    if not _components_loaded: # Cargar solo si no se ha intentado o si falló antes
+        _load_components()
+    return _model, _feature_order
 
-# --- Función para acceder a los componentes (sin cambios) ---
-def get_model_components():
-    """Retorna los componentes cargados del modelo."""
-    # Esta función ahora depende de que las variables globales (model, scaler, etc.)
-    # se hayan cargado correctamente arriba. Si alguna falló, será None.
-    if not all([model, scaler, feature_order, cols_to_scale]):
-        print("Advertencia: Uno o más componentes del modelo (model, scaler, feature_order, cols_to_scale) no se cargaron correctamente debido a errores previos (revisar logs).")
-    return model, scaler, feature_order, cols_to_scale
+# Opcional: realizar una carga inicial cuando el módulo se importa por primera vez
+# if not _components_loaded:
+# _load_components()
