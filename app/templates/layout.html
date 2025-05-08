@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Predicción Satisfacción Aerolínea{% endblock %}</title>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <!-- Podrías añadir Bootstrap u otros frameworks aquí -->
+</head>
+<body>
+    <header>
+        <h1><a href="{{ url_for('main.index') }}">Satisfacción del Cliente - Aerolínea XYZ</a></h1>
+        <nav>
+            <ul>
+              <li><a href="{{ url_for('main.index') }}">Predecir</a></li>
+              <li><a href="{{ url_for('main.about') }}">Sobre el Equipo</a></li>
+                <!-- Puedes añadir más enlaces -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Mostrar mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Contenido específico de la página -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2024 Nuestro Equipo de ML</p>
+    </footer>
+
+    <!-- Link JS (si es necesario globalmente) -->
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    {% block scripts %}{% endblock %} <!-- Para scripts específicos de la página -->
+</body>
+</html>
