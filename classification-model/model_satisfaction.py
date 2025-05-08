@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
-current_dir = os.getcwd()  # Use os.getcwd() to get the current working directory
+current_dir = os.getcwd()  # Obtener el directorio actual
 parent_dir = os.path.dirname(current_dir)
 data_dir = os.path.join(parent_dir, "data")
 file_path = os.path.join(data_dir, "")
