@@ -12,6 +12,7 @@
 - [Possible Improvements](#-possible-improvements)  
 - [EDA Architecture Diagram](#-eda-architecture-diagram)  
 - [Installation and Usage](#-installation-and-usage)
+- [Model Performance & Hyperparameters](#-model-performance-&-hyperparameters)
 - [Collaborators](#-collaborators)  
 ---
 
@@ -31,7 +32,6 @@ The model is integrated into a **Flask** backend application, where users input 
 ✅ Backend implemented with **Flask** and **Flask-SQLAlchemy**.  
 ✅ Database integration using **MySQL Workbench**.  
 ✅ Well-organized and modular project structure.  
-
 ---
 
 ## 🐞 Current Issues  
@@ -42,7 +42,6 @@ The model is integrated into a **Flask** backend application, where users input 
 ✅ Implement additional models for comparison (e.g., Logistic Regression, XGBoost).  
 ✅ Add frontend using Streamlit or React.  
 ✅ Improve model explainability with SHAP values.  
-
 ---
 
 ## 📁 Folder Structure
@@ -87,6 +86,13 @@ pip install -r requirements.txt
 ```bash
 flask run
 ```
+---
+## 📊 Model Performance & Hyperparameters
+
+<div align="center">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746792966/Captura_de_pantalla_2025-05-08_082125_bh38io.png" alt="Metrics" width="800" height="250">
+</div>
+---
 
 ## 🧑‍💻 Collaborators
 This project was developed by the following contributors:
