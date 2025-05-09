@@ -1,12 +1,9 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 import joblib
 import os
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, classification_report
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -45,7 +42,7 @@ random_search = RandomizedSearchCV(
 
 random_search.fit(X_train, y_train)
 print("Mejores hiperparámetros:", random_search.best_params_)
-best_rf = random_search.best_estimator_
+best_rf = random_search.best_estimator_  # best_estimator_ es un atributo de RandomizedSearchCV que contiene el mejor modelo encontrado durante la búsqueda de hiperparámetros, aquí le decimos Guarda el mejor modelo encontrado por RandomizedSearchCV en la variable best_rf.
 
 # Entrenar el modelo con los mejores hiperparámetros
 best_rf.fit(X_train, y_train)
