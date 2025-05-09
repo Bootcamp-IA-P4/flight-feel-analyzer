@@ -32,7 +32,6 @@ class NewFlightData(db.Model):
     inflight_service = db.Column(db.Integer)
     cleanliness = db.Column(db.Integer)
     departure_delay_in_minutes = db.Column(db.Integer)
-    arrival_delay_in_minutes = db.Column(db.Integer)
 
     # --- Resultado de la Predicción ---
     predicted_satisfaction = db.Column(db.Integer) # 0 o 1
