@@ -1,7 +1,7 @@
 # Flight feel analyzer - Classification model
 
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746698933/Presentaci%C3%B3n_Planificaci%C3%B3n_Viaje_Elegante_Fotogr%C3%A1fico_Blanco_1_ysdevs.jpg" alt="Banner centrado" width="900" height="450">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746795604/Presentaci%C3%B3n_Planificaci%C3%B3n_Viaje_Elegante_Fotogr%C3%A1fico_Blanco_2_q55bvz.jpg" alt="Banner centrado" width="900" height="450">
 </div>
 
 ## 📌 Index
@@ -25,23 +25,25 @@ The goal is to use customer data and their flight survey responses to determine 
 The model is integrated into a **Flask** backend application, where users input their flight details, and the system returns a satisfaction prediction. The data is managed using **MySQL Workbench** with **Flask-SQLAlchemy**, and development has been carried out in **Python**, using **Jupyter Notebooks** and **VSCode**.
 
 ---
-
 ## 🔍 Main Features  
 ✅ Complete EDA process with data cleaning and visualizations.  
 ✅ Binary classification with **Random Forest** model.  
 ✅ Backend implemented with **Flask** and **Flask-SQLAlchemy**.  
 ✅ Database integration using **MySQL Workbench**.  
 ✅ Well-organized and modular project structure.  
+
 ---
 
 ## 🐞 Current Issues  
-❌ The model's performance could benefit from using more historical data. 
+❌ The model's performance could benefit from using more historical data.
+
 ---
 
 ## 💡 Possible Improvements  
 ✅ Implement additional models for comparison (e.g., Logistic Regression, XGBoost).  
 ✅ Add frontend using Streamlit or React.  
 ✅ Improve model explainability with SHAP values.  
+
 ---
 
 ## 📁 Folder Structure
@@ -49,13 +51,26 @@ The model is integrated into a **Flask** backend application, where users input 
 ```bash
 # Flight Feel Analyzer
 📂 Flight-Feel-Analyzer/
-├── 📂 .venv/                   
+├── 📂 .venv/
+├── 📂 app/
+│   └── 📂 ml_models
+│   └── 📂 models
+│   └── 📂 static
+│   └── 📂 templates
+│   └── _init_.py
+│   └── model_loader.py
+│   └── routes.py               
 ├── 📂 classification-model/  
-│   └── model.pkl  
-├── 📂 data/     
+│   └── model.pkl
+│   └── testing-model.ipynb  
+├── 📂 data/
+├── 📂 EDA/
+│   └── satisfaction-passenger.ipynb
+├── 📜 .env 
 ├── 📜 README.md  
 ├── 📜 .gitignore  
-├── 📜 requirements.txt  
+├── 📜 requirements.txt
+├── 📜 run.py  
 ```
 ---
 
@@ -102,4 +117,3 @@ This project was developed by the following contributors:
 - [Omar Lengua Suárez](https://github.com/Omarlsant/)
 ---
 <p align="right">(<a href="#-index">⬆️ Back to top</a>)</p>
-
