@@ -4,7 +4,6 @@
   <img src="https://res.cloudinary.com/artevivo/image/upload/v1746698933/Presentaci%C3%B3n_Planificaci%C3%B3n_Viaje_Elegante_Fotogr%C3%A1fico_Blanco_1_ysdevs.jpg" alt="Banner centrado" width="900" height="450">
 </div>
 
-
 ## 📌 Index
 - [About the Project](#-about-the-project)  
 - [Main Features](#-main-features)  
@@ -62,7 +61,9 @@ The model is integrated into a **Flask** backend application, where users input 
 ---
 
 ## 🧠 EDA Architecture Diagram
-<div> </div>
+<div align="center">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746779498/Captura_de_pantalla_2025-05-09_092602_vrcdea.png" alt="Banner centrado" width="900" height="450">
+</div>
 ---
 
 ## ⚙️ Installation and Usage
