@@ -3,146 +3,258 @@
 {% block title %}Formulario de Satisfacción{% endblock %}
 
 {% block content %}
-<h2>Introduce tus datos y los de tu vuelo</h2>
-<p>Completa el siguiente formulario para predecir tu nivel de satisfacción y ayudarnos a mejorar.</p>
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">Evalúa tu experiencia de vuelo</h2>
+            </div>
+            <div class="card-body">
+                <p class="lead mb-4">Completa el  formulario para predecir tu nivel de satisfacción y ayudarnos a mejorar nuestro servicio.</p>
 
-<form action="{{ url_for('main.predict') }}" method="post" class="satisfaction-form">
+                <form action="{{ url_for('main.predict') }}" method="post" class="needs-validation" novalidate>
+                    <!-- Información Personal -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h3 class="h5 mb-0"><i class="fas fa-user me-2"></i>Información Personal</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="customer_name" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="customer_name" name="customer_name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customer_email" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="customer_email" name="customer_email">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customer_dni" class="form-label">DNI/Identificación</label>
+                                    <input type="text" class="form-control" id="customer_dni" name="customer_dni">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="customer_phone" class="form-label">Teléfono (Opcional)</label>
+                                    <input type="tel" class="form-control" id="customer_phone" name="customer_phone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="form-section">
-        <h3>Información Personal (Para seguimiento)</h3>
-         <div class="form-group">
-            <label for="customer_name">Nombre Completo:</label>
-            <input type="text" id="customer_name" name="customer_name">
-        </div>
-        <div class="form-group">
-            <label for="customer_email">Correo Electrónico:</label>
-            <input type="email" id="customer_email" name="customer_email">
-        </div>
-        <div class="form-group">
-            <label for="customer_dni">DNI/Identificación:</label>
-            <input type="text" id="customer_dni" name="customer_dni">
-        </div>
-        <div class="form-group">
-            <label for="customer_phone">Teléfono (Opcional):</label>
-            <input type="tel" id="customer_phone" name="customer_phone">
+                    <!-- Información del Pasajero -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h3 class="h5 mb-0"><i class="fas fa-plane me-2"></i>Información del Pasajero</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="Gender" class="form-label">Género</label>
+                                    <select class="form-select" id="Gender" name="Gender" required>
+                                        <option value="" disabled selected>Selecciona...</option>
+                                        <option value="0">Femenino</option>
+                                        <option value="1">Masculino</option>
+                                    </select>
+                                    <div class="invalid-feedback">Por favor selecciona una opción</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Customer Type" class="form-label">Tipo de Cliente</label>
+                                    <select class="form-select" id="Customer Type" name="Customer Type" required>
+                                        <option value="" disabled selected>Selecciona...</option>
+                                        <option value="1">Cliente Leal</option>
+                                        <option value="0">Cliente No Leal</option>
+                                    </select>
+                                    <div class="invalid-feedback">Por favor selecciona una opción</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Age" class="form-label">Edad</label>
+                                    <input type="number" class="form-control" id="Age" name="Age" min="5" max="100" required>
+                                    <div class="invalid-feedback">Por favor ingresa una edad válida (5-100)</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Type of Travel" class="form-label">Tipo de Viaje</label>
+                                    <select class="form-select" id="Type of Travel" name="Type of Travel" required>
+                                        <option value="" disabled selected>Selecciona...</option>
+                                        <option value="1">Viaje de Negocios</option>
+                                        <option value="0">Viaje Personal</option>
+                                    </select>
+                                    <div class="invalid-feedback">Por favor selecciona una opción</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="flight_class" class="form-label">Clase de Vuelo</label>
+                                    <select class="form-select" id="flight_class" name="Class" required>
+                                        <option value="" disabled selected>Selecciona...</option>
+                                        <option value="2">Business</option>
+                                        <option value="0">Eco</option>
+                                        <option value="1">Eco Plus</option>
+                                    </select>
+                                    <div class="invalid-feedback">Por favor selecciona una opción</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="Flight Distance" class="form-label">Distancia del Vuelo (km)</label>
+                                    <input type="number" class="form-control" id="Flight Distance" name="Flight Distance" min="10" required>
+                                    <div class="invalid-feedback">Por favor ingresa una distancia válida (mínimo 10 km)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Valoración de Servicios -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h3 class="h5 mb-0"><i class="fas fa-star me-2"></i>Valoración de Servicios</h3>
+                            <small class="text-muted">0=Malo, 5=Excelente</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="Inflight wifi service" class="form-label">Servicio Wifi a bordo</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Inflight wifi service" name="Inflight wifi service" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Departure/Arrival time convenient" class="form-label">Conveniencia Horario Salida/Llegada</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Departure/Arrival time convenient" name="Departure/Arrival time convenient" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Ease of Online booking" class="form-label">Facilidad Reserva Online</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Ease of Online booking" name="Ease of Online booking" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Gate location" class="form-label">Ubicación Puerta Embarque</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Gate location" name="Gate location" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Food and drink" class="form-label">Comida y Bebida</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Food and drink" name="Food and drink" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Online boarding" class="form-label">Embarque Online</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Online boarding" name="Online boarding" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Seat comfort" class="form-label">Comodidad del Asiento</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Seat comfort" name="Seat comfort" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Inflight entertainment" class="form-label">Entretenimiento a Bordo</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Inflight entertainment" name="Inflight entertainment" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="On-board service" class="form-label">Servicio a Bordo</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="On-board service" name="On-board service" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Leg room service" class="form-label">Espacio para Piernas</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Leg room service" name="Leg room service" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Baggage handling" class="form-label">Manejo de Equipaje</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Baggage handling" name="Baggage handling" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Checkin service" class="form-label">Servicio Check-in</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Checkin service" name="Checkin service" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Inflight service" class="form-label">Servicio en Vuelo</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Inflight service" name="Inflight service" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Cleanliness" class="form-label">Limpieza</label>
+                                    <div class="input-group mb-2">
+                                        <input type="range" class="form-range" id="Cleanliness" name="Cleanliness" min="0" max="5" value="3" oninput="this.nextElementSibling.value = this.value">
+                                        <output class="badge bg-primary ms-2">3</output>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Información de Retrasos -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h3 class="h5 mb-0"><i class="fas fa-clock me-2"></i>Información de Retrasos</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="Departure Delay in Minutes" class="form-label">Retraso Salida (minutos)</label>
+                                    <input type="number" class="form-control" id="Departure Delay in Minutes" name="Departure Delay in Minutes" min="0" value="0" required>
+                                    <div class="invalid-feedback">Por favor ingresa un valor válido (mínimo 0)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Predecir Satisfacción y Guardar Datos
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+</div>
 
-
-    <div class="form-section">
-        <h3>Información del Pasajero (Para predicción)</h3>
-        <div class="form-group">
-            <label for="Gender">Género:</label>
-            <select id="Gender" name="Gender" required>
-                <option value="" disabled selected>Selecciona...</option>
-                <option value="0">Femenino</option>
-                <option value="1">Masculino</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="Customer Type">Tipo de Cliente:</label>
-            <select id="Customer Type" name="Customer Type" required>
-                <option value="" disabled selected>Selecciona...</option>
-                <option value="1">Cliente Leal</option>
-                <option value="0">Cliente No Leal</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="Age">Edad:</label>
-            <input type="number" id="Age" name="Age" min="5" max="100" required>
-        </div>
-        <div class="form-group">
-            <label for="Type of Travel">Tipo de Viaje:</label>
-            <select id="Type of Travel" name="Type of Travel" required>
-                <option value="" disabled selected>Selecciona...</option>
-                <option value="1">Viaje de Negocios</option>
-                <option value="0">Viaje Personal</option>
-            </select>
-        </div>
-        <div class="form-group">
-             <label for="flight_class">Clase de Vuelo:</label>
-             <select id="flight_class" name="Class" required>
-                <option value="" disabled selected>Selecciona...</option>
-                <option value="2">Business</option>
-                <option value="0">Eco</option>
-                <option value="1">Eco Plus</option>
-             </select>
-        </div>
-        <div class="form-group">
-            <label for="Flight Distance">Distancia del Vuelo (km):</label>
-            <input type="number" id="Flight Distance" name="Flight Distance" min="10" required>
-        </div>
-    </div>
-
-    <div class="form-section">
-        <h3>Valoración de Servicios (0=Malo, 5=Excelente)</h3>
-        <!-- Añadir todos los campos de valoración aquí -->
-        <div class="form-group rating-group">
-            <label for="Inflight wifi service">Servicio Wifi a bordo:</label>
-            <input type="number" id="Inflight wifi service" name="Inflight wifi service" min="0" max="5" required>
-        </div>
-        <div class="form-group rating-group">
-            <label for="Departure/Arrival time convenient">Conveniencia Horario Salida/Llegada:</label>
-            <input type="number" id="Departure/Arrival time convenient" name="Departure/Arrival time convenient" min="0" max="5" required>
-        </div>
-         <div class="form-group rating-group">
-             <label for="Ease of Online booking">Facilidad Reserva Online:</label>
-             <input type="number" id="Ease of Online booking" name="Ease of Online booking" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Gate location">Ubicación Puerta Embarque:</label>
-             <input type="number" id="Gate location" name="Gate location" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Food and drink">Comida y Bebida:</label>
-             <input type="number" id="Food and drink" name="Food and drink" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Online boarding">Embarque Online:</label>
-             <input type="number" id="Online boarding" name="Online boarding" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Seat comfort">Comodidad del Asiento:</label>
-             <input type="number" id="Seat comfort" name="Seat comfort" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Inflight entertainment">Entretenimiento a Bordo:</label>
-             <input type="number" id="Inflight entertainment" name="Inflight entertainment" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="On-board service">Servicio a Bordo:</label>
-             <input type="number" id="On-board service" name="On-board service" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Leg room service">Espacio para Piernas:</label>
-             <input type="number" id="Leg room service" name="Leg room service" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Baggage handling">Manejo de Equipaje:</label>
-             <input type="number" id="Baggage handling" name="Baggage handling" min="1" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Checkin service">Servicio Check-in:</label>
-             <input type="number" id="Checkin service" name="Checkin service" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Inflight service">Servicio en Vuelo:</label>
-             <input type="number" id="Inflight service" name="Inflight service" min="0" max="5" required>
-         </div>
-         <div class="form-group rating-group">
-             <label for="Cleanliness">Limpieza:</label>
-             <input type="number" id="Cleanliness" name="Cleanliness" min="0" max="5" required>
-         </div>
-    </div>
-
-    <div class="form-section">
-        <h3>Información de Retrasos</h3>
-        <div class="form-group">
-            <label for="Departure Delay in Minutes">Retraso Salida (minutos):</label>
-            <input type="number" id="Departure Delay in Minutes" name="Departure Delay in Minutes" min="0" required>
-        </div>
-    </div>
-
-    <button type="submit" class="submit-button">Predecir Satisfacción y Guardar Datos</button>
-</form>
+<!-- Script para validación de formulario -->
+<script>
+(function () {
+    'use strict'
+    
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+    
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+</script>
 {% endblock %}
