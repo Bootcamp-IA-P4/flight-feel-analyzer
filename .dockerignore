@@ -1,0 +1,109 @@
+# .dockerignore
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/ # Tu entorno virtual local
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.hypothesis/
+.pytest_cache/
+cover/
+instance/
+htmlcov/
+celerybeat-schedule
+
+# Bases de datos locales
+*.sqlite
+*.db
+*.db-journal
+app/database/ # Si usaste SQLite como fallback y se creó ahí
+
+# Archivos de entorno (NO se deben incluir secretos en la imagen)
+.env
+*.env
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# IDE / OS files
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Carpetas de datos crudos o exploración que no son parte de la app
+data/
+EDA/
+classification-model/
+model-no-subir/ # Parece una carpeta que no quieres incluir
+*.ipynb # Notebooks de Jupyter
+
+# Otros
+node_modules/
+npm-debug.log
+
+# .dockerignore
+.git
+.gitignore
+.DS_Store
+.idea/
+.vscode/
+
+# Entornos virtuales y cachés de Python
+.venv/
+venv/
+env/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+app/__pycache__/
+app/models/__pycache__/
+app/ml_models/__pycache__/
+
+# Archivos de datos grandes o temporales
+data_short_preprocessed.csv
+*.ipynb # Jupyter notebooks
+EDA/
+model-no-subir/
+data/ # Si data/ no es necesario para la ejecución de la app, solo para entrenamiento
+classification-model/ # Si solo es para desarrollo local de modelos
+
+# Base de datos local (si se usara SQLite directamente)
+instance/
+*.sqlite
+*.db
+*.db-journal
+
+# Archivo de entorno del host
+.env
+
+# Logs
+*.log
+logs/
+
+# Archivos de SO
+Thumbs.db
+Desktop.ini

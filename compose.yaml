@@ -1,0 +1,49 @@
+services:
+  web:
+    build: .
+    container_name: flight_feel_analyzer_web
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app_root
+    environment:
+      - RUNNING_IN_DOCKER_COMPOSE=true
+      - FLASK_APP=app
+      - FLASK_DEBUG=${FLASK_DEBUG:-0}
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - MODEL_FILENAME=${MODEL_FILENAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - flightnet
+
+  db:
+    image: mysql:8.0
+    container_name: flight_feel_analyzer_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flightnet
+
+volumes:
+  mysql_data:
+
+networks:
+  flightnet:
+    driver: bridge
