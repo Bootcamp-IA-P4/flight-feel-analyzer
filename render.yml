@@ -1,0 +1,29 @@
+# render.yaml
+services:
+  - type: web
+    name: flight-feel-analyzer-web
+    env: docker
+    repo: https://github.com/Bootcamp-IA-P4/flight-feel-analyzer.git
+    branch: main
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: FLASK_APP
+        value: app
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: SECRET_KEY
+        value: Abc123456789xyZñ
+      - key: DB_USER
+        value: docker_flight_analizer_user
+      - key: DB_PASSWORD
+        value: XKZLhT755L8BLBoYWEILgaw4LA2fLMY1
+      - key: DB_HOST
+        value: dpg-d0h423p5pdvs7387lf70-a
+      - key: DB_NAME
+        value: docker_flight_analizer_qx4f
+      - key: MODEL_FILENAME
+        value: model.pkl
+      - key: DB_PORT
+        value: "5432"
+

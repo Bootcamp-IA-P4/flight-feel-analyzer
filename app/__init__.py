@@ -45,10 +45,9 @@ def create_app():
         print("Error Crítico: Faltan variables de entorno para la base de datos (DB_USER, DB_PASSWORD, DB_HOST, DB_NAME).")
         raise EnvironmentError("Configuración de base de datos incompleta en variables de entorno. Revise su .env y docker-compose.yml")
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host_from_env}/{db_name}'
-        print(f"SQLALCHEMY_DATABASE_URI configurada para: mysql+mysqlconnector://{db_user}:[PROTEGIDO]@{db_host_from_env}/{db_name}")
+        db_port = os.environ.get('DB_PORT', 5432)
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{db_host_from_env}:{db_port}/{db_name}'
 
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
 
