@@ -4,56 +4,67 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
-print(f"Buscando .env en: {dotenv_path}")
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path)
-    print(".env cargado.")
+# Solo intenta cargar .env si la variable de entorno RUNNING_IN_DOCKER_COMPOSE no es 'true'
+# Esta variable la estableces en docker-compose.yml
+RUNNING_IN_DOCKER_COMPOSE = os.environ.get('RUNNING_IN_DOCKER_COMPOSE', 'false').lower() == 'true'
+
+if not RUNNING_IN_DOCKER_COMPOSE:
+    # Construir la ruta al .env en la raíz del proyecto (un nivel arriba de la carpeta 'app')
+    project_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    dotenv_path = os.path.join(project_root_dir, '.env')
+    print(f"No ejecutando en Docker Compose (o RUNNING_IN_DOCKER_COMPOSE no es true). Buscando .env en: {dotenv_path}")
+    if os.path.exists(dotenv_path):
+        load_dotenv(dotenv_path)
+        print(".env cargado por la aplicación.")
+    else:
+        print(f"Advertencia: .env no encontrado en {dotenv_path} para carga local.")
 else:
-    print("Advertencia: archivo .env no encontrado.")
+    print("Ejecutando en Docker Compose. Se esperan variables de entorno directamente (ignorar búsqueda local de .env).")
 
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
+    print("Creando aplicación Flask...")
 
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default-secret-key-please-change')
+    # SECRET_KEY
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    if not app.config['SECRET_KEY']:
+        print("ADVERTENCIA: SECRET_KEY no encontrada en el entorno. Usando valor por defecto (¡inseguro!).")
+        app.config['SECRET_KEY'] = 'dev-secret-key-please-change-in-env'
 
+    # Configuración de la Base de Datos
     db_user = os.environ.get('DB_USER')
     db_password = os.environ.get('DB_PASSWORD')
-    db_host = os.environ.get('DB_HOST')
+    db_host_from_env = os.environ.get('DB_HOST')
     db_name = os.environ.get('DB_NAME')
 
-    if not all([db_user, db_password, db_host, db_name]):
-        print("Error Crítico: Faltan variables de entorno para la base de datos. Usando SQLite como fallback.")
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        db_path = os.path.join(basedir, 'database', 'predictions.db')
-        os.makedirs(os.path.join(basedir, 'database'), exist_ok=True)
-        app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+    print(f"Variables DB leídas del entorno: USER={db_user}, HOST='{db_host_from_env}', NAME={db_name}")
+
+    if not all([db_user, db_password, db_host_from_env, db_name]):
+        print("Error Crítico: Faltan variables de entorno para la base de datos (DB_USER, DB_PASSWORD, DB_HOST, DB_NAME).")
+        raise EnvironmentError("Configuración de base de datos incompleta en variables de entorno. Revise su .env y docker-compose.yml")
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_name}'
-        print(f"Configurando base de datos MySQL: mysql+mysqlconnector://{db_user}:***@{db_host}/{db_name}")
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host_from_env}/{db_name}'
+        print(f"SQLALCHEMY_DATABASE_URI configurada para: mysql+mysqlconnector://{db_user}:[PROTEGIDO]@{db_host_from_env}/{db_name}")
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
 
-    # --- Registrar el Blueprint ---
-    from .routes import main_bp # Importa el blueprint
-    app.register_blueprint(main_bp) # Registra el blueprint en la app
+    from .routes import main_bp
+    app.register_blueprint(main_bp)
 
-    # Crear tablas
     with app.app_context():
-        # Importa modelos aquí dentro para evitar problemas de importación circular
-        # y asegurar que el contexto de la app esté activo
         from .models.flight_data_model import NewFlightData
-        print("Verificando/creando tablas de base de datos...")
+        print("Intentando crear/verificar tablas de base de datos...")
         try:
             db.create_all()
             print("Tablas verificadas/creadas.")
         except Exception as e:
-             print(f"Error al crear las tablas de la base de datos: {e}")
-             print("Asegúrate de que la base de datos exista y las credenciales en .env sean correctas.")
+             print(f"ERROR al crear las tablas de la base de datos: {e}")
+             print(f"URI usada: {app.config.get('SQLALCHEMY_DATABASE_URI')}")
+             print(f"Asegúrate de que la base de datos '{db_name}' exista, las credenciales sean correctas y el host '{db_host_from_env}' sea accesible.")
 
-    print("Aplicación Flask creada.")
+    print("Aplicación Flask creada y configurada.")
     return app
