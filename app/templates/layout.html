@@ -1,47 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Predicción Satisfacción Aerolínea{% endblock %}</title>
-    <!-- Link CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Airline Satisfaction Prediction{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+     
+    <!-- Custom styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <!-- Podrías añadir Bootstrap u otros frameworks aquí -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/predict.css') }}">
+    
+    
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <header>
-        <h1><a href="{{ url_for('main.index') }}">Satisfacción del Cliente - Aerolínea XYZ</a></h1>
-        <nav>
-            <ul>
-              <li><a href="{{ url_for('main.index') }}">Predecir</a></li>
-              <li><a href="{{ url_for('main.about') }}">Sobre el Equipo</a></li>
-                <!-- Puedes añadir más enlaces -->
-            </ul>
-        </nav>
+    <!-- Navigation bar -->
+    <header class="bg-primary text-white py-1 mb-4 sticky-top">
+        <div class="container">
+            <div class="row align-items-center">
+                
+                <div class="col-md-6">
+                    <a href="/" class="text-decoration-none">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="XYZ Airline Logo" style="height: 100px;">
+                    </a>
+                </div>
+
+            </div>
+        </div>
     </header>
 
-    <main>
-        <!-- Mostrar mensajes flash -->
+    <!-- Main content -->
+    <main class="container py-4">
+        <!-- Display flash messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <div class="flash-messages">
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-              {% endfor %}
-            </div>
-          {% endif %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endwith %}
-
-        <!-- Contenido específico de la página -->
+        
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <p>© 2024 Nuestro Equipo de ML</p>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2024 Our ML Team</p>
+        </div>
     </footer>
-
-    <!-- Link JS (si es necesario globalmente) -->
+    <!-- Scripts -->
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-    {% block scripts %}{% endblock %} <!-- Para scripts específicos de la página -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+    
+    {% block scripts %}{% endblock %} <!-- For page-specific scripts -->
 </body>
 </html>

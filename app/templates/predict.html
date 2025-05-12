@@ -3,11 +3,96 @@
 {% block title %}Resultado de la Predicción{% endblock %}
 
 {% block content %}
-<h2>Resultado de la Predicción</h2>
-<div class="prediction-result">
-    <p>El nivel de satisfacción predicho para este perfil es:</p>
-    <p class="result-text">{{ prediction_text }}</p>
-    <p>(Probabilidad estimada de estar satisfecho: {{ probability }})</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card result-card">
+                <div class="card-body text-center">
+                    <h2 class="card-title mb-4">Resultado de la Predicción</h2>
+                    
+                    <div class="progress-circle mb-4">
+                        <svg width="200" height="200" viewBox="0 0 100 100">
+                            <!-- Círculo de fondo -->
+                            <circle class="bg-circle" cx="50" cy="50" r="45" />
+                            
+                            <!-- Círculo de progreso -->
+                            <circle class="progress" cx="50" cy="50" r="45" 
+                                    stroke-dasharray="283" 
+                                    stroke-dashoffset="283" 
+                                    id="progress-circle" />
+                        </svg>
+                        <div class="percent-text" id="percent-text">0%</div>
+                    </div>
+                    
+                    {% if "satisfecho" in prediction_text.lower() %}
+                        <div class="result-icon satisfied">
+                            <i class="fas fa-smile-beam"></i>
+                        </div>
+                    {% elif "neutral" in prediction_text.lower() %}
+                        <div class="result-icon neutral">
+                            <i class="fas fa-meh"></i>
+                        </div>
+                    {% else %}
+                        <div class="result-icon unsatisfied">
+                            <i class="fas fa-frown"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <h3 class="result-label mb-3">
+                        {% if "satisfecho" in prediction_text.lower() %}
+                            <span class="satisfied">{{ prediction_text }}</span>
+                        {% elif "neutral" in prediction_text.lower() %}
+                            <span class="neutral">{{ prediction_text }}</span>
+                        {% else %}
+                            <span class="unsatisfied">{{ prediction_text }}</span>
+                        {% endif %}
+                    </h3>
+                    
+                    <p class="lead mb-4">Probabilidad estimada de estar satisfecho: <strong>{{ probability }}</strong></p>
+                    
+                    <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-action">
+                        <i class="fas fa-redo-alt me-2"></i>Realizar otra predicción
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<a href="{{ url_for('main.index') }}" class="back-link">Realizar otra predicción</a>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el porcentaje de la probabilidad
+        const probabilityText = "{{ probability }}";
+        const probability = parseFloat(probabilityText.replace('%', ''));
+        
+        // Actualizar el círculo de progreso
+        const circle = document.getElementById('progress-circle');
+        const percentText = document.getElementById('percent-text');
+        const circumference = 2 * Math.PI * 45; // 2πr donde r=45
+        
+        // Definir colores según el porcentaje
+        let color;
+        if (probability >= 70) {
+            color = '#2ecc71'; // Verde para alta satisfacción
+        } else if (probability >= 40) {
+            color = '#f39c12'; // Amarillo/Naranja para satisfacción media
+        } else {
+            color = '#e74c3c'; // Rojo para baja satisfacción
+        }
+        
+        // Aplicar el color
+        circle.style.stroke = color;
+        
+        // Calcular el offset para la animación
+        const offset = circumference - (probability / 100) * circumference;
+        
+        // Animar
+        setTimeout(() => {
+            percentText.textContent = probability.toFixed(1) + '%';
+            circle.style.strokeDashoffset = offset;
+        }, 300);
+    });
+</script>
 {% endblock %}

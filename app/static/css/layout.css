@@ -4,102 +4,100 @@
     --accent-color: #e74c3c;
     --light-color: #ecf0f1;
     --dark-color: #2c3e50;
- }
- 
- 
- body {
+}
+
+body {
     background-color: #f8f9fa;
     color: #333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
- }
- 
- 
- .card {
+}
+
+.card {
     border-radius: 10px;
     overflow: hidden;
     border: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 25px;
- }
- 
- 
- .card-header {
+}
+
+.card-header {
     font-weight: 600;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
- }
- 
- 
- .form-label {
+}
+
+.form-label {
     font-weight: 500;
     color: #555;
- }
- 
- 
- .btn-primary {
+}
+
+.btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     padding: 10px 20px;
     font-weight: 600;
     transition: all 0.3s ease;
- }
- 
- 
- .btn-primary:hover {
+}
+
+.btn-primary:hover {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
     transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
- }
- 
- 
- .form-control:focus, .form-select:focus {
+}
+
+.form-control:focus, .form-select:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
- }
- 
- 
- .badge {
+}
+
+.badge {
     font-weight: 500;
     font-size: 14px;
- }
- 
- 
- .form-range {
+}
+
+.form-range {
     width: 85%;
- }
- 
- 
- .input-group {
+}
+
+.input-group {
     display: flex;
     align-items: center;
- }
- 
- 
- /* Estilos para flash messages */
- .alert {
+}
+
+/* Estilos para flash messages */
+.alert {
     border-radius: 8px;
     margin-bottom: 20px;
     padding: 12px 20px;
- }
- 
- 
- .alert-success {
+}
+
+.alert-success {
     background-color: #d4edda;
     border-color: #c3e6cb;
     color: #155724;
- }
- 
- 
- .alert-danger {
+}
+
+.alert-danger {
     background-color: #f8d7da;
     border-color: #f5c6cb;
     color: #721c24;
- }
- 
- 
- .alert-warning {
+}
+
+.alert-warning {
     background-color: #fff3cd;
     border-color: #ffeeba;
     color: #856404;
- }
- 
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 15px;
+    }
+}

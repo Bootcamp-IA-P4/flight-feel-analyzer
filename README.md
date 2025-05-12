@@ -1,7 +1,7 @@
 # Flight feel analyzer - Classification model
 
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746698933/Presentaci%C3%B3n_Planificaci%C3%B3n_Viaje_Elegante_Fotogr%C3%A1fico_Blanco_1_ysdevs.jpg" alt="Banner centrado" width="900" height="450">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746795604/Presentaci%C3%B3n_Planificaci%C3%B3n_Viaje_Elegante_Fotogr%C3%A1fico_Blanco_2_q55bvz.jpg" alt="Banner centrado" width="900" height="450">
 </div>
 
 ## 📌 Index
@@ -12,6 +12,8 @@
 - [Possible Improvements](#-possible-improvements)  
 - [EDA Architecture Diagram](#-eda-architecture-diagram)  
 - [Installation and Usage](#-installation-and-usage)
+- [Model Performance & Hyperparameters](#-model-performance-&-hyperparameters)
+- [Testing](#-testing)
 - [Collaborators](#-collaborators)  
 ---
 
@@ -24,7 +26,6 @@ The goal is to use customer data and their flight survey responses to determine 
 The model is integrated into a **Flask** backend application, where users input their flight details, and the system returns a satisfaction prediction. The data is managed using **MySQL Workbench** with **Flask-SQLAlchemy**, and development has been carried out in **Python**, using **Jupyter Notebooks** and **VSCode**.
 
 ---
-
 ## 🔍 Main Features  
 ✅ Complete EDA process with data cleaning and visualizations.  
 ✅ Binary classification with **Random Forest** model.  
@@ -35,7 +36,8 @@ The model is integrated into a **Flask** backend application, where users input 
 ---
 
 ## 🐞 Current Issues  
-❌ The model's performance could benefit from using more historical data. 
+❌ The model's performance could benefit from using more historical data.
+
 ---
 
 ## 💡 Possible Improvements  
@@ -50,19 +52,34 @@ The model is integrated into a **Flask** backend application, where users input 
 ```bash
 # Flight Feel Analyzer
 📂 Flight-Feel-Analyzer/
-├── 📂 .venv/                   
+├── 📂 .venv/
+├── 📂 app/
+│   └── 📂 ml_models
+│   └── 📂 models
+│   └── 📂 static
+│   └── 📂 templates
+│   └── _init_.py
+│   └── model_loader.py
+│   └── routes.py               
 ├── 📂 classification-model/  
-│   └── model.pkl  
-├── 📂 data/     
+│   └── model.pkl
+│   └── testing-model.ipynb  
+├── 📂 data/
+├── 📂 EDA/
+│   └── satisfaction-passenger.ipynb
+├── 📂 tests/
+│   └── test_model_satisfaction.py
+├── 📜 .env 
 ├── 📜 README.md  
 ├── 📜 .gitignore  
-├── 📜 requirements.txt  
+├── 📜 requirements.txt
+├── 📜 run.py  
 ```
 ---
 
 ## 🧠 EDA Architecture Diagram
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746779498/Captura_de_pantalla_2025-05-09_092602_vrcdea.png" alt="Banner centrado" width="900" height="450">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746779498/Captura_de_pantalla_2025-05-09_092602_vrcdea.png" alt="Banner centrado" width="900" height="400">
 </div>
 ---
 
@@ -87,6 +104,23 @@ pip install -r requirements.txt
 ```bash
 flask run
 ```
+---
+## 📊 Model Performance & Hyperparameters
+
+<div align="center">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746792966/Captura_de_pantalla_2025-05-08_082125_bh38io.png" alt="Metrics" width="800" height="250">
+</div>
+---
+
+## 🧐 Testing
+Copy the following command to run the tests:
+```bash
+python -m unittest tests/test_model_satisfaction.py
+```
+<div align="center">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1747053472/Captura_de_pantalla_2025-05-12_134230_r3w2qg.png" alt="Metrics" width="400" height="100">
+</div>
+---
 
 ## 🧑‍💻 Collaborators
 This project was developed by the following contributors:
@@ -96,4 +130,3 @@ This project was developed by the following contributors:
 - [Omar Lengua Suárez](https://github.com/Omarlsant/)
 ---
 <p align="right">(<a href="#-index">⬆️ Back to top</a>)</p>
-
