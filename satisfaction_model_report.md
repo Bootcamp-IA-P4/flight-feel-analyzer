@@ -1,7 +1,7 @@
 # Informe de Rendimiento: Modelo Predictivo de Satisfacción del Cliente
-## Aerolínea [Nombre de la Aerolínea]
+## Airline Customer Satisfaction
 
-![Airline Customer Satisfaction](https://via.placeholder.com/800x200?text=Customer+Satisfaction+Analysis)
+![Airline Customer Satisfaction](https://via.placeholder.com/800x200?text=Customer+Satisfaction+Analysis/)
 
 ## Resumen Ejecutivo
 
