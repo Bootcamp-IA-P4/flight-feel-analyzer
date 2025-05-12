@@ -1,0 +1,85 @@
+.result-card {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+ }
+    
+.result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+    
+.progress-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+    
+.progress-circle .circle {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+    
+.bg-circle {
+    stroke: #f1f1f1;
+}
+    
+.progress {
+    stroke: #3498db;
+    transition: stroke-dashoffset 1s ease;
+}
+    
+.percent-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+    
+.result-label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 20px;
+    color: #3498db;
+}
+    
+.satisfied {
+    color: #2ecc71;
+}
+    
+.neutral {
+    color: #f39c12;
+}
+    
+.unsatisfied {
+    color: #e74c3c;
+}
+    
+.btn-action {
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-top: 15px;
+    transition: all 0.3s;
+}
+    
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+    
+.card-body {
+    padding: 2rem;
+}
+    
+.result-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
