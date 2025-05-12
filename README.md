@@ -13,6 +13,7 @@
 - [EDA Architecture Diagram](#-eda-architecture-diagram)  
 - [Installation and Usage](#-installation-and-usage)
 - [Model Performance & Hyperparameters](#-model-performance-&-hyperparameters)
+- [Testing](#-testing)
 - [Collaborators](#-collaborators)  
 ---
 
@@ -66,6 +67,8 @@ The model is integrated into a **Flask** backend application, where users input 
 ├── 📂 data/
 ├── 📂 EDA/
 │   └── satisfaction-passenger.ipynb
+├── 📂 tests/
+│   └── test_model_satisfaction.py
 ├── 📜 .env 
 ├── 📜 README.md  
 ├── 📜 .gitignore  
@@ -76,7 +79,7 @@ The model is integrated into a **Flask** backend application, where users input 
 
 ## 🧠 EDA Architecture Diagram
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746779498/Captura_de_pantalla_2025-05-09_092602_vrcdea.png" alt="Banner centrado" width="900" height="450">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1746779498/Captura_de_pantalla_2025-05-09_092602_vrcdea.png" alt="Banner centrado" width="900" height="400">
 </div>
 ---
 
@@ -106,6 +109,16 @@ flask run
 
 <div align="center">
   <img src="https://res.cloudinary.com/artevivo/image/upload/v1746792966/Captura_de_pantalla_2025-05-08_082125_bh38io.png" alt="Metrics" width="800" height="250">
+</div>
+---
+
+## 🧐 Testing
+Copy the following command to run the tests:
+```bash
+python -m unittest tests/test_model_satisfaction.py
+```
+<div align="center">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1747053472/Captura_de_pantalla_2025-05-12_134230_r3w2qg.png" alt="Metrics" width="400" height="100">
 </div>
 ---
 
