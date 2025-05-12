@@ -15,6 +15,7 @@
 - [Model Performance & Hyperparameters](#-model-performance-&-hyperparameters)
 - [Testing](#-testing)
 - [Render Deployment](#-render-deployment)
+- [Dockerization](#-dockerization).
 - [Collaborators](#-collaborators)  
 ---
 
@@ -127,6 +128,15 @@ python -m unittest tests/test_model_satisfaction.py
 ## 🚀 Render Deployment
 You can view the live version of the Flight Feel Analyzer project at [Render - Flight Feel Analyzer](https://flight-feel-analyzer-1.onrender.com).
 
+---
+
+## 🐋 Dockerization
+
+This application is Dockerized. To run it, execute the following command:
+
+```bash
+docker-compose up --build
+```
 ---
 
 ## 🧑‍💻 Collaborators
