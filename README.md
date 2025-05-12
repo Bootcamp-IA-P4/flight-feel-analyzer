@@ -22,7 +22,8 @@
 
 **Flight Feel Analyzer** is a machine learning classification project developed after being contracted by an airline to help predict passenger satisfaction levels. 
 
-The goal is to use customer data and their flight survey responses to determine whether they were **satisfied or not** with the service. After a rigorous process of **exploratory data analysis (EDA)**, data cleaning, and feature engineering, we selected a **Random Forest Classifier** as our final model due to its robustness and accuracy for binary classification tasks.
+The goal is to use customer data and their flight survey responses to determine whether they were **satisfied or not** with the service. After a rigorous process of **exploratory data analysis (EDA)** and data preprocessing ([Colab](https://colab.research.google.com/drive/1cKj-GHQK5rYj1P3glOpQzHk1-dhlbI76?usp=sharing)
+), we selected a **Random Forest Classifier** as our final model due to its robustness and accuracy for binary classification tasks.
 
 The model is integrated into a **Flask** backend application, where users input their flight details, and the system returns a satisfaction prediction. The data is managed using **MySQL Workbench** with **Flask-SQLAlchemy**, and development has been carried out in **Python**, using **Jupyter Notebooks** and **VSCode**.
 
